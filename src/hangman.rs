@@ -61,7 +61,7 @@ impl Hangman {
         }
     }
 
-    pub fn texto_juego(&self) {
+    pub fn show_game(&self) {
         const TITLE:&str  = "Bienvenido al hangman de LAMBDA!";
         const WORD:&str = "La word hasta el momento es:";
         const ATTEMPTS:(&str, &str) = ("Te quedan", "attempts.");
@@ -98,7 +98,7 @@ impl Hangman {
         println!("{}", PROMPT);
     }
 
-    pub fn entrada_usr(&mut self) -> AttemptResult {
+    pub fn usr_input(&mut self) -> AttemptResult {
         let mut v = String::from("");
         std::io::stdin().read_line(&mut v).expect("Error reading the line.");
         self.guess_letter(v.as_bytes()[0] as char)
