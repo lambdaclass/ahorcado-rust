@@ -83,7 +83,7 @@ impl Hangman {
         let len_misses = self.misses.len();
         let mut misses_vec = vec![' '; len_misses * 2 - 1];
 
-        for (i, l) in self.misses[..len_misses].into_iter().enumerate() {
+        for (i, l) in self.misses[..len_misses].iter().enumerate() {
             misses_vec[i * 2] = *l; 
         }
 

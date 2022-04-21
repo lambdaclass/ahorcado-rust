@@ -1,8 +1,8 @@
 use rand::Rng;
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::Path;
+use std::fs;
 mod hangman;
+
+const FILENAME:&str = "res/words";
 
 fn main_loop(hangman:&mut hangman::Hangman) {
     hangman.show_game();
@@ -21,20 +21,13 @@ fn main_loop(hangman:&mut hangman::Hangman) {
     }
 }
 
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-    where P: AsRef<Path>, {
-        let file = File::open(filename)?;
-        Ok(io::BufReader::new(file).lines())
+fn read_file_lines(filename: String) -> Vec<String> {
+    let file: String = fs::read_to_string(filename).expect("Couldn't read file");
+    file.lines().map(|l| l.to_string()).collect()
 }
 
 fn main() {
-    let mut words = Vec::<String>::new();
-    if let Ok(lines) = read_lines("res/words") {
-        for line in lines {
-            words.push(line.expect("Couldn't read file."));
-        }
-    }
-
+    let words = read_file_lines(String::from(FILENAME));
     let mut rng = rand::thread_rng();
     let indx = rng.gen_range(0..words.len());
 
