@@ -63,9 +63,9 @@ pub mod hangman {
         }
 
         pub fn show_game(&self) {
-            const TITLE:&str  = "Bienvenido al hangman de LAMBDA!";
-            const WORD:&str = "La word hasta el momento es:";
-            const ATTEMPTS:(&str, &str) = ("Te quedan", "attempts.");
+            const TITLE:&str  = "Bienvenido al ahorcado de LAMBDA!";
+            const WORD:&str = "La palabra hasta el momento es:";
+            const ATTEMPTS:(&str, &str) = ("Te quedan", "intentos.");
             const LETTERS:&str = "Letras usadas:";
             const PROMPT:&str = "Ingresa una letra:";
 
