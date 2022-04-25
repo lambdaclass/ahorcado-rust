@@ -25,18 +25,17 @@ impl Hangman {
         }
     }
 
-    fn guess_letter(&mut self, l:char) -> AttemptResult {
-        
-        if self.hits.contains(&l) || self.misses.contains(&l) {
+    fn guess_letter(&mut self, letter:char) -> AttemptResult {
+        if self.hits.contains(&letter) || self.misses.contains(&letter) {
             return AttemptResult::CanKeepPlaying;
         }
 
         let mut guessed_letter = false;
         let mut missing_letters = false;
 
-        for (i, c) in self.word.chars().enumerate(){
-            if c == l {
-                self.hits[i] = l;
+        for (i, letter_from_word) in self.word.chars().enumerate(){
+            if letter == letter_from_word {
+                self.hits[i] = letter;
                 guessed_letter = true;
             }
 
@@ -50,7 +49,7 @@ impl Hangman {
         } else if guessed_letter {
             AttemptResult::CanKeepPlaying
         } else {
-            self.misses[self.attempts] = l;
+            self.misses[self.attempts] = letter;
             self.attempts += 1;
 
             if self.attempts == 5 {
@@ -79,7 +78,6 @@ impl Hangman {
 
         let guessed:String = guessed_vec.into_iter().collect();
 
-        
         let len_misses = self.misses.len();
         let mut misses_vec = vec![' '; len_misses * 2 - 1];
 
@@ -88,7 +86,6 @@ impl Hangman {
         }
 
         let misses:String = misses_vec.into_iter().collect();
-
 
         std::process::Command::new("clear").status().expect("Error when opening the file.");
         println!("{}", TITLE);
