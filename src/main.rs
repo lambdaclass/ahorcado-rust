@@ -3,19 +3,18 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 mod hangman;
-use hangman::hangman::{Hangman, AttemptResult};
 
-fn main_loop(hangman:&mut Hangman) {
+fn main_loop(hangman:&mut hangman::Hangman) {
     hangman.show_game();
     let attempt_result = hangman.usr_input();
 
     match attempt_result {
-        AttemptResult::CanKeepPlaying => main_loop(hangman),
-        AttemptResult::Win => {
+        hangman::AttemptResult::CanKeepPlaying => main_loop(hangman),
+        hangman::AttemptResult::Win => {
             hangman.show_game();
             println!("Ganaste!");
         },
-        AttemptResult::Hanged => {
+        hangman::AttemptResult::Hanged => {
             hangman.show_game();
             println!("Ahorcado! X_X");
         },
@@ -39,6 +38,6 @@ fn main() {
     let mut rng = rand::thread_rng();
     let indx = rng.gen_range(0..words.len());
 
-    let game = &mut Hangman::new(words[indx].to_string());
+    let game = &mut hangman::Hangman::new(words[indx].to_string());
     main_loop(game);
 }
